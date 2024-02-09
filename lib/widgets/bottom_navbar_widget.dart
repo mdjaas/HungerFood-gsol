@@ -2,26 +2,34 @@ import 'package:flutter/material.dart';
 
 import 'package:g_solution/screens/businesses_dashboard.dart';
 import 'package:g_solution/screens/business_products.dart';
-import 'package:g_solution/screens/login.dart';
+import 'package:g_solution/screens/business_profile.dart';
 
 class BottomNavbarWidget extends StatefulWidget {
-  const BottomNavbarWidget({super.key});
+
+  final List<Widget>? menuScreens;
+  final List<BottomNavigationBarItem>? menuItems;
+
+  BottomNavbarWidget({
+    super.key,
+    this.menuScreens,
+    this.menuItems,
+  });
 
   @override
   State<BottomNavbarWidget> createState() =>
       _BottomNavbarState();
 }
 
-class _BottomNavbarState
-    extends State<BottomNavbarWidget> {
+class _BottomNavbarState extends State<BottomNavbarWidget> {
   int _selectedIndex = 0;
-  static const List<Widget> _widgetOptions = <Widget>[
-    BusinessDashboard(),
-    BusinessProducts(),
-    Text(
-      'Index 2: Profile',
-    ),
-  ];
+  late List<Widget> _widgetOptions;
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize _widgetOptions based on menu_screens or use a default value
+    _widgetOptions = widget.menuScreens ?? <Widget>[];
+  }
 
   void _onItemTapped(int index) {
     setState(() {
@@ -36,20 +44,7 @@ class _BottomNavbarState
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_cart),
-            label: 'Products',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
-          ),
-        ],
+        items: widget.menuItems ?? <BottomNavigationBarItem>[],
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.amber[800],
         onTap: _onItemTapped,

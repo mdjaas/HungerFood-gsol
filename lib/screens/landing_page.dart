@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'login.dart';
-
 class LandingScreen extends StatelessWidget{
   const LandingScreen({super.key});
 
@@ -79,10 +77,9 @@ class GetStartedButton extends StatelessWidget{
             child: InkWell(
               onTap: () {
                 Navigator.pop(context);
-                Navigator.push(
+                Navigator.pushNamed(
                   context,
-                  MaterialPageRoute(builder: (context) => const LoginScreen(),
-                  ),
+                  'login',
                 );
               },
 

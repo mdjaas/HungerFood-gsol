@@ -6,11 +6,13 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget{
   final Color? backgroundColor;
   final Color? iconThemeColor;
   final double? elevation;
+  final String? title;
 
   AppBarWidget({
     this.backgroundColor,
     this.iconThemeColor,
     this.elevation,
+    this.title,
   });
 
 
@@ -20,6 +22,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget{
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      title: Text(title ?? "", style: TextStyle(color: Colors.black),),
       iconTheme: IconThemeData(
         color: null == iconThemeColor ? Colors.blue : iconThemeColor,
       ),

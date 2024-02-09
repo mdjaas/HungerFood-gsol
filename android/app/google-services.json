@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "550121862200",
+    "project_id": "gsolution-2024",
+    "storage_bucket": "gsolution-2024.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:550121862200:android:f32e5d0c9600776c2b22cd",
+        "android_client_info": {
+          "package_name": "com.example.g_solution"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCmT97DBglnnhzGcj9sSrl2O_6zHYSKmmU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

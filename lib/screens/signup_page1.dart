@@ -5,8 +5,17 @@ import 'package:g_solution/widgets/ink_well_widget.dart';
 import 'signup_page2.dart';
 import 'package:g_solution/widgets/dropdown_widget.dart';
 
-class GettingStarted extends StatelessWidget {
+class GettingStarted extends StatefulWidget{
   const GettingStarted({super.key});
+
+  @override
+  _GettingStartedState createState() => _GettingStartedState();
+}
+
+class _GettingStartedState extends State<GettingStarted> {
+  TextEditingController _roleController = TextEditingController();
+
+  String role="";
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +55,13 @@ class GettingStarted extends StatelessWidget {
           ),
           
 
-          DropdownWidget(),
+          DropdownWidget(
+            onValueChanged: (value) {
+              setState(() {
+                role = value;
+              });
+            },
+          ),
 
           Padding(padding: EdgeInsets.only(top:20, left:20, right: 20),
               child: InkWellWidget(
@@ -54,11 +69,14 @@ class GettingStarted extends StatelessWidget {
                 fontSize: 20,
                 padding: const EdgeInsets.only(top: 10, bottom: 10,),
                 onPress: (){
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const SignUp(),
-                    ),
-                  );
+                  if(role!=''){
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => SignUp(userRole: role),
+                      ),
+                    );
+                  }
+
                 },
               )
           ),

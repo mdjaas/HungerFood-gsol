@@ -6,6 +6,7 @@ class BusinessProductWidget extends StatelessWidget {
   final String? postingDay;
   final String? desc;
   final String? price;
+  final String? image;
 
   const BusinessProductWidget({
     super.key,
@@ -13,6 +14,7 @@ class BusinessProductWidget extends StatelessWidget {
     this.postingDay,
     this.desc,
     this.price,
+    this.image,
   });
 
   @override
@@ -20,18 +22,17 @@ class BusinessProductWidget extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(5),
       width: MediaQuery.of(context).size.width,
-      height: 120,
       decoration: BoxDecoration(
         border: Border.all(color: Colors.black, width: 1),
-        borderRadius: BorderRadius.all(Radius.circular(15)),
+        borderRadius: BorderRadius.all(Radius.circular(5)),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Image.asset(
-            'assets/food.png',
+          Image.network(
+            image!,
             width: 120,
-            height: 200,
+            height: 100,
           ),
           Expanded(
             child: Column(
