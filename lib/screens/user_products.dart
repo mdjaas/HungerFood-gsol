@@ -30,6 +30,7 @@ class UserProducts extends StatelessWidget {
                   'title': document['productName'],
                   'price': document['price'],
                   'location': document['description'],
+                  'productId': document.id,
                 };
                 allUsersProducts.add(productData);
               }
@@ -64,7 +65,7 @@ class UserProducts extends StatelessWidget {
                           },
                             child: Padding(
                             padding: EdgeInsets.only(left: 10, top: 10),
-                            child: StoreFilter(storeType: "Grocery", image: "assets/food.png"),
+                            child: StoreFilter(storeType: "Grocery", image: "assets/grocery.png"),
                           ),
                           ),
 
@@ -78,7 +79,7 @@ class UserProducts extends StatelessWidget {
                           },
                             child: Padding(
                               padding: EdgeInsets.only(left: 10, top: 10),
-                              child: StoreFilter(storeType: "Bakery", image: "assets/food.png"),
+                              child: StoreFilter(storeType: "Bakery", image: "assets/bakery.png"),
                             ),
                           ),
                           TextButton(onPressed: (){
@@ -104,7 +105,7 @@ class UserProducts extends StatelessWidget {
                           },
                             child: Padding(
                               padding: EdgeInsets.only(left: 10, top: 10),
-                              child: StoreFilter(storeType: "Farm", image: "assets/food.png"),
+                              child: StoreFilter(storeType: "Farm", image: "assets/farm.png"),
                             ),
                           ),
                         ],
@@ -154,6 +155,7 @@ class UserProducts extends StatelessWidget {
                               image: allUsersProducts[index]['image'],
                               title: allUsersProducts[index]['title'],
                               price: allUsersProducts[index]['price'],
+                              productId: allUsersProducts[index]['productId'],
                               location: "Al Rahim Cafe, Anna Nager",
                             ),
                           );
@@ -180,7 +182,8 @@ class UserProducts extends StatelessWidget {
                                    Navigator.push(
                                      context,
                                      MaterialPageRoute(
-                                       builder: (context) => const UserItemsList(title: "Free deals at your locality" ),
+                                       builder: (context) =>
+                                       const UserItemsList(title: "Free deals at your locality", price: "0", ),
                                      ),
                                    );
                                  },
@@ -200,7 +203,8 @@ class UserProducts extends StatelessWidget {
                             child: UserProductsWidget(
                               image: allUsersProducts[index]['image'],
                               title: allUsersProducts[index]['title'],
-                              price: 'Free', // Assuming 'price' represents the deal type
+                              price: allUsersProducts[index]['price'],
+                              productId: allUsersProducts[index]['productId'],
                               location: "Al Rahim Cafe, Anna Nager",
                             ),
                           );

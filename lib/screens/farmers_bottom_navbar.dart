@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 
 import 'package:g_solution/widgets/bottom_navbar_widget.dart';
-import 'user_products.dart';
-import 'user_orders.dart';
-import 'user_profile.dart';
-import 'cart.dart';
+import 'farmers_dashboard.dart';
+import 'farmers_products.dart';
+import 'farmers_profile.dart';
 
-class UserBottomNavbar extends StatelessWidget{
-  const UserBottomNavbar({super.key});
+class FarmersBottomNavbar extends StatelessWidget{
+  const FarmersBottomNavbar({super.key});
 
   @override
   Widget build(BuildContext context){
@@ -17,23 +16,18 @@ class UserBottomNavbar extends StatelessWidget{
         body:
         BottomNavbarWidget(
           menuScreens: [
-            UserProducts(),
-            UserOrders(),
-            Cart(),
-            UserProfile(),
+            FarmersDashboard(),
+            FarmersProducts(),
+            FarmersProfile(),
           ],
           menuItems: const [
             BottomNavigationBarItem(
-              icon: Icon(Icons.store),
-              label: 'Products',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.note),
-              label: 'Orders',
+              icon: Icon(Icons.home),
+              label: 'Dashboard',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.shopping_cart),
-              label: 'Cart',
+              label: 'Products',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.person),

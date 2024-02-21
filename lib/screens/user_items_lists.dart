@@ -7,11 +7,13 @@ import 'package:g_solution/widgets/app_bar_widget.dart';
 class UserItemsList extends StatelessWidget {
   final String? title;
   final String? category;
+  final String? price;
 
   const UserItemsList({
     Key? key,
     this.title,
     this.category,
+    this.price,
   }) : super(key: key);
 
   @override
@@ -32,12 +34,13 @@ class UserItemsList extends StatelessWidget {
             } else {
               List<Map<String, dynamic>> allUsersProducts = [];
               for (QueryDocumentSnapshot document in snapshot.data!.docs) {
-                if (document['category']==category) {
+                if (document['category']==category || document["price"]==price) {
                   Map<String, dynamic> productData = {
                     'image': document['imageURL'],
                     'title': document['productName'],
                     'price': document['price'],
                     'location': document['description'],
+                    'productId': document.id,
                   };
                   allUsersProducts.add(productData);
                 }
@@ -64,6 +67,7 @@ class UserItemsList extends StatelessWidget {
                               title: product['title'],
                               price: product['price'],
                               location: product['location'],
+                              productId: product['productId'],
                             )
                         );
                       },

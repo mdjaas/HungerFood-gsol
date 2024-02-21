@@ -5,16 +5,15 @@ import 'package:provider/provider.dart';
 import 'package:g_solution/widgets/text_field_widget.dart';
 import 'package:g_solution/widgets/ink_well_widget.dart';
 import 'package:g_solution/providers/user_provider.dart';
-import 'package:g_solution/providers/cart_provider.dart';
 
-class UserProfile extends StatefulWidget{
-  UserProfile({super.key});
+class FarmersProfile extends StatefulWidget{
+  FarmersProfile({super.key});
 
   @override
-  _UserProfileState createState() => _UserProfileState();
+  _FarmersProfileState createState() => _FarmersProfileState();
 }
 
-class _UserProfileState extends State<UserProfile> {
+class _FarmersProfileState extends State<FarmersProfile> {
   TextEditingController _nameController = TextEditingController();
   TextEditingController _emailController= TextEditingController();
   TextEditingController _phoneController = TextEditingController();
@@ -26,7 +25,6 @@ class _UserProfileState extends State<UserProfile> {
   @override
   Widget build(BuildContext context) {
     final userProvider = Provider.of<UserProvider>(context);
-    final cartProvider = Provider.of<CartProvider>(context);
 
     _nameController.text = userProvider.user?.name ?? '';
     _emailController.text = userProvider.user?.username ?? '';
@@ -57,7 +55,7 @@ class _UserProfileState extends State<UserProfile> {
                         children: [
                           SizedBox(height: 30,),
                           TextFieldWidget(
-                            placeholder: "Name",
+                            placeholder: "Business Name",
                             textEditingController: _nameController,
                           ),
                           const SizedBox(height: 20,),
@@ -90,7 +88,6 @@ class _UserProfileState extends State<UserProfile> {
                               padding: EdgeInsets.symmetric(vertical: 15),
                               onPress: () async {
                                 await FirebaseAuth.instance.signOut();
-                                cartProvider.cartItems=[];
                                 Navigator.pop(context);
                                 Navigator.pushNamed(
                                     context,

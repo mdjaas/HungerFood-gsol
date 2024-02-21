@@ -1,7 +1,23 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class UserOrderedProduct extends StatelessWidget {
-  const UserOrderedProduct({Key? key});
+  final String? image;
+  final DateTime? orderDate;
+  final String? price;
+  final String? title;
+  final int? qty;
+  final String? orderNo;
+
+  const UserOrderedProduct({
+    Key? key,
+    this.image,
+    this.qty,
+    this.price,
+    this.title,
+    this.orderDate,
+    this.orderNo,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -13,14 +29,16 @@ class UserOrderedProduct extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Image.asset("assets/food.png", width: 100, height: 100,),
+          Padding(padding: EdgeInsets.symmetric(horizontal: 10,),
+            child: Image.network(image!, width: 100, height: 100,),
+          ),
           Expanded(
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("Ordered Today",
+                  Text("$orderDate",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                   ),
@@ -28,20 +46,21 @@ class UserOrderedProduct extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("Burger",
+                      Text(title ?? "",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
+                        fontSize: 18,
                       ),
                       ),
-                      Text("Rs. 10"),
+                      Text("Rs. " + price!),
                     ],
                   ),
                   SizedBox(height: 20,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween, // Adjusted this line
                     children: [
-                      Text("Order no. 122233"),
-                      Text("10 pcs"),
+                      Text(orderNo ?? ""),
+                      Text("$qty" + "pcs"),
                     ],
                   ),
                 ],

@@ -97,10 +97,16 @@ class _LoginScreenState extends State<LoginScreen> {
                             'businessBottomNavbar',
                           );
                         }
-                        else{
+                        else if(userSnapshot['role']=='Customer') {
                           Navigator.pushNamed(
                             context,
                             'userBottomNavbar',
+                          );
+                        }
+                        else{
+                          Navigator.pushNamed(
+                            context,
+                            'farmersBottomNavbar'
                           );
                         }
                       }

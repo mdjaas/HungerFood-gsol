@@ -1,23 +1,17 @@
 import 'package:flutter/material.dart';
 
-import 'package:g_solution/screens/businesses_dashboard.dart';
-import 'package:g_solution/screens/business_products.dart';
-import 'package:g_solution/screens/business_profile.dart';
-
 class BottomNavbarWidget extends StatefulWidget {
-
   final List<Widget>? menuScreens;
   final List<BottomNavigationBarItem>? menuItems;
 
   BottomNavbarWidget({
-    super.key,
+    Key? key,
     this.menuScreens,
     this.menuItems,
-  });
+  }) : super(key: key);
 
   @override
-  State<BottomNavbarWidget> createState() =>
-      _BottomNavbarState();
+  State<BottomNavbarWidget> createState() => _BottomNavbarState();
 }
 
 class _BottomNavbarState extends State<BottomNavbarWidget> {
@@ -27,7 +21,6 @@ class _BottomNavbarState extends State<BottomNavbarWidget> {
   @override
   void initState() {
     super.initState();
-    // Initialize _widgetOptions based on menu_screens or use a default value
     _widgetOptions = widget.menuScreens ?? <Widget>[];
   }
 
@@ -40,14 +33,15 @@ class _BottomNavbarState extends State<BottomNavbarWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
-      ),
+      body: _widgetOptions.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
         items: widget.menuItems ?? <BottomNavigationBarItem>[],
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.amber[800],
         onTap: _onItemTapped,
+        type: BottomNavigationBarType.fixed, // Use fixed type for more than 3 items
+        selectedFontSize: 14.0, // Adjust font size if needed
+        unselectedFontSize: 14.0,
       ),
     );
   }

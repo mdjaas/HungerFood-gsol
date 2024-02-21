@@ -12,21 +12,27 @@ import 'package:g_solution/screens/signup_page2.dart';
 import 'package:g_solution/screens/users_bottom_navbar.dart';
 import 'package:g_solution/screens/business_add_product.dart';
 import 'package:g_solution/providers/user_provider.dart';
+import 'package:g_solution/providers/cart_provider.dart';
+import 'package:g_solution/screens/farmers_bottom_navbar.dart';
+import 'package:g_solution/screens/farmersAddProduct.dart';
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  await UserProvider().checkLoggedIn();
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => UserProvider(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => UserProvider()),
+        ChangeNotifierProvider(create: (context) => CartProvider()),
+      ],
       child: MyApp(),
     ),
   );
 }
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -45,6 +51,8 @@ class MyApp extends StatelessWidget {
         'signupScreen': (context) => const SignUp(),
         'userBottomNavbar': (context) => const UserBottomNavbar(),
         'businessAddProduct': (context) => BusinessAddProduct(),
+        'farmersBottomNavbar': (context) => FarmersBottomNavbar(),
+        'farmersAddProduct': (context) => FarmersAddProduct(),
 
       },
     );

@@ -24,7 +24,7 @@ class StoreFilter extends StatelessWidget{
                 ),
                 borderRadius: BorderRadius.circular(35),
               ),
-             child: Image.asset(image!),
+             child: Image.asset(image!,),
             ),
             Text(storeType!),
           ],
