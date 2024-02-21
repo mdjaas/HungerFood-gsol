@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
+import 'package:geolocator/geolocator.dart';
 
 import 'signup_page1.dart';
 import 'package:g_solution/widgets/ink_well_widget.dart';
@@ -22,7 +23,37 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController _passwordController = TextEditingController();
   String username = "";
   String password = "";
+  double? latitude;
+  double? longitude;
   FirebaseFirestore usersDb = FirebaseFirestore.instance;
+
+  Future<void> getCurrentLocation() async {
+    try {
+      LocationPermission permission = await Geolocator.requestPermission();
+
+      if (permission == LocationPermission.denied) {
+        print('Location permission denied');
+        return;
+      }
+
+      Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high,
+      );
+
+      latitude = position.latitude;
+      longitude = position.longitude;
+
+      print('Latitude: $latitude, Longitude: $longitude');
+    } catch (e) {
+      print('Error getting location: $e');
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getCurrentLocation();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -84,11 +115,13 @@ class _LoginScreenState extends State<LoginScreen> {
                       );
                       DocumentSnapshot userSnapshot =
                         await usersDb.collection('users').doc(credential.user!.uid).get();
-                      if (userSnapshot.exists){
+                      if (userSnapshot.exists && latitude!=null && longitude!=null){
                         await userProvider.login(
                           credential.user!.uid,
                           userSnapshot['email'],
                           userSnapshot['Name'],
+                          latitude!,
+                          longitude!,
                         );
                         Navigator.pop(context);
                         if (userSnapshot['role']=='Business'){

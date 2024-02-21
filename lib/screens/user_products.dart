@@ -1,15 +1,27 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:provider/provider.dart';
+import 'dart:math';
+
 
 import 'package:g_solution/widgets/text_field_widget.dart';
 import 'package:g_solution/widgets/store_filter.dart';
 import 'package:g_solution/widgets/user_products_widget.dart';
 import 'package:g_solution/screens/user_items_lists.dart';
 import 'package:g_solution/widgets/ink_well_widget.dart';
+import 'package:g_solution/providers/user_provider.dart';
 
-class UserProducts extends StatelessWidget {
-  const UserProducts({Key? key});
+class UserProducts extends StatefulWidget{
+
+  const UserProducts({super.key});
+
+  @override
+  _UserProductState createState() => _UserProductState();
+}
+
+class _UserProductState extends State<UserProducts> {
 
   @override
   Widget build(BuildContext context) {
@@ -25,14 +37,26 @@ class UserProducts extends StatelessWidget {
             } else {
               List<Map<String, dynamic>> allUsersProducts = [];
               for (QueryDocumentSnapshot document in snapshot.data!.docs) {
-                Map<String, dynamic> productData = {
-                  'image': document['imageURL'],
-                  'title': document['productName'],
-                  'price': document['price'],
-                  'location': document['description'],
-                  'productId': document.id,
-                };
-                allUsersProducts.add(productData);
+                double productLatitude = document['latitude'];
+                double productLongitude = document['longitude'];
+                final userProvider = Provider.of<UserProvider>(context);
+                double distance = Geolocator.distanceBetween(
+                  userProvider.user?.latitude ?? 0.0,
+                  userProvider.user?.longitude ?? 0.0,
+                  productLatitude,
+                  productLongitude,
+                );
+                print(distance);
+                if (document['quantity']!=0 && distance<=5000){
+                  Map<String, dynamic> productData = {
+                    'image': document['imageURL'],
+                    'title': document['productName'],
+                    'price': document['price'],
+                    'location': document['description'],
+                    'productId': document.id,
+                  };
+                  allUsersProducts.add(productData);
+                }
               }
 
               return SingleChildScrollView(
@@ -147,7 +171,7 @@ class UserProducts extends StatelessWidget {
                       height: 200,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
-                        itemCount: allUsersProducts.length,
+                        itemCount: min(3, allUsersProducts.length),
                         itemBuilder: (context, index) {
                           return Container(
 
@@ -197,7 +221,7 @@ class UserProducts extends StatelessWidget {
                       height: 200,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
-                        itemCount: allUsersProducts.length,
+                        itemCount: min(3, allUsersProducts.length),
                         itemBuilder: (context, index) {
                           return Container(
                             child: UserProductsWidget(

@@ -79,17 +79,30 @@ class Cart extends StatelessWidget {
           .doc(currentUser.uid)
           .collection('cart');
 
+      final QuerySnapshot<Map<String, dynamic>> productsSnapshot = await FirebaseFirestore.instance
+          .collectionGroup('userProducts')
+          .get();
+
       for (var cartItem in cartItems) {
-        await cartCollection.add({
+        final cartDocRef = await cartCollection.add({
           'image': cartItem.image,
           'title': cartItem.title,
           'qty': cartItem.qty,
           'price': cartItem.price,
           'date':  DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day),
         });
+
+        for (var productDoc in productsSnapshot.docs) {
+          if (productDoc.id == cartItem.documentId) {
+            final currentOrderCount = productDoc.data()['quantity'] ?? 0;
+            final newOrderCount = currentOrderCount - cartItem.qty;
+            await productDoc.reference.update({'quantity': newOrderCount});
+          }
+        }
       }
     } catch (error) {
       print("Error storing cart in Firestore: $error");
     }
   }
+
 }

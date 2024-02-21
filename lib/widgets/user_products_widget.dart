@@ -41,6 +41,7 @@ class UserProductsWidget extends StatelessWidget {
             ),
           ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Padding(
                 padding: const EdgeInsets.only(left: 10),
@@ -49,7 +50,6 @@ class UserProductsWidget extends StatelessWidget {
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),
-              const SizedBox(width: 120),
               Text(
                 "Rs." + price!,
                 style: TextStyle(fontWeight: FontWeight.bold),

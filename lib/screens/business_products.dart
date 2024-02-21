@@ -29,14 +29,16 @@ class BusinessProducts extends StatelessWidget {
             } else {
               List<Map<String, dynamic>> userProducts = [];
               for (QueryDocumentSnapshot document in snapshot.data!.docs) {
-                Map<String, dynamic> productData = {
-                  'productName': document['productName'],
-                  'description': document['description'],
-                  'price': document['price'],
-                  'category': document['category'],
-                  'imageURL': document['imageURL'],
-                };
-                userProducts.add(productData);
+                if (document['quantity']!=0){
+                  Map<String, dynamic> productData = {
+                    'productName': document['productName'],
+                    'description': document['description'],
+                    'price': document['price'],
+                    'category': document['category'],
+                    'imageURL': document['imageURL'],
+                  };
+                  userProducts.add(productData);
+                }
               }
 
               return ListView.builder(

@@ -7,8 +7,8 @@ class UserProvider with ChangeNotifier{
   User? _user;
   User? get user => _user;
 
-  Future<void> login(String uid, String username, String name) async{
-    _user= User(uid: uid, username: username, name: name);
+  Future<void> login(String uid, String username, String name, double latitude, double longitude) async{
+    _user= User(uid: uid, username: username, name: name, latitude: latitude, longitude: longitude);
     await UsersSharedPreferences.saveUser(uid, username, name);
     notifyListeners();
   }
@@ -20,7 +20,7 @@ class UserProvider with ChangeNotifier{
   }
 
   Future<void> checkLoggedIn() async {
-    final Map<String, String> userData = await UsersSharedPreferences.getUser(this);
+    final Map<String, dynamic> userData = await UsersSharedPreferences.getUser(this);
   }
 
   void updateUser(User newUser) {
