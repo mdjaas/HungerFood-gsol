@@ -55,6 +55,14 @@ class _LoginScreenState extends State<LoginScreen> {
     getCurrentLocation();
   }
 
+  void showSnackbar(BuildContext context, String message) {
+    final snackBar = SnackBar(
+      content: Text(message),
+    );
+
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
   @override
   Widget build(BuildContext context) {
     final userProvider = Provider.of<UserProvider>(context);
@@ -104,9 +112,6 @@ class _LoginScreenState extends State<LoginScreen> {
               padding: EdgeInsets.only(left: 100, right: 100),
               child: InkWellWidget(
                 onPress: () async {
-                  // Access username using the state variable
-                  print("Username entered: $username");
-
                   if (usernameValidation.hasMatch(username) && passwordValidation.hasMatch(password)){
                     try {
                       final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
@@ -122,6 +127,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           userSnapshot['Name'],
                           latitude!,
                           longitude!,
+                          userSnapshot['phone'],
                         );
                         Navigator.pop(context);
                         if (userSnapshot['role']=='Business'){
@@ -144,10 +150,11 @@ class _LoginScreenState extends State<LoginScreen> {
                         }
                       }
                     } on FirebaseAuthException catch (e) {
+                      showSnackbar(context, "User could not be logged in");
                       if (e.code == 'user-not-found') {
-                        print('No user found for that email.');
+                        showSnackbar(context, "Username not found");
                       } else if (e.code == 'wrong-password') {
-                        print('Wrong password provided for that user.');
+                        showSnackbar(context, "Username and password doesn't match");
                       }
                     }
                   }

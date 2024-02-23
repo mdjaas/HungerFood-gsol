@@ -34,7 +34,7 @@ class UserOrderedProduct extends StatelessWidget {
           ),
           Expanded(
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
+              padding: EdgeInsets.symmetric(horizontal: 15),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -55,12 +55,13 @@ class UserOrderedProduct extends StatelessWidget {
                       Text("Rs. " + price!),
                     ],
                   ),
-                  SizedBox(height: 20,),
+                  SizedBox(height: 10,),
+                  Text("$qty" + "pcs"),
+                  SizedBox(height: 10,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween, // Adjusted this line
                     children: [
                       Text(orderNo ?? ""),
-                      Text("$qty" + "pcs"),
                     ],
                   ),
                 ],

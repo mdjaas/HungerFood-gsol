@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 class BusinessProductWidget extends StatelessWidget {
 
   final String? heading;
-  final String? postingDay;
   final String? desc;
   final String? price;
   final String? image;
@@ -11,7 +10,6 @@ class BusinessProductWidget extends StatelessWidget {
   const BusinessProductWidget({
     super.key,
     this.heading,
-    this.postingDay,
     this.desc,
     this.price,
     this.image,
@@ -38,11 +36,7 @@ class BusinessProductWidget extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  "Posted "+postingDay!,
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                ),
-                SizedBox(height: 5),
+
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children:[

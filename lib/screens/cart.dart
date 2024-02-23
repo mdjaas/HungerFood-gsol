@@ -14,6 +14,14 @@ import '../models/user_model.dart';
 class Cart extends StatelessWidget {
   const Cart({Key? key}) : super(key: key);
 
+  void showSnackbar(BuildContext context, String message) {
+    final snackBar = SnackBar(
+      content: Text(message),
+    );
+
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
   @override
   Widget build(BuildContext context) {
     final cartProvider = Provider.of<CartProvider>(context);
@@ -60,6 +68,7 @@ class Cart extends StatelessWidget {
                     await _storeCartInFirestore(currentUser!, cartProvider.cartItems);
                     cartProvider.cartItems=[];
                     cartProvider.notifyListeners();
+                    showSnackbar(context, 'Products reserved successfully');
                   } catch (error) {
                     print("Error storing cart in Firestore: $error");
                   }

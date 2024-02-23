@@ -28,6 +28,14 @@ class _SignupScreenState extends State<SignUp> {
   String name="";
   FirebaseFirestore db = FirebaseFirestore.instance;
 
+  void showSnackbar(BuildContext context, String message) {
+    final snackBar = SnackBar(
+      content: Text(message),
+    );
+
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -94,13 +102,14 @@ class _SignupScreenState extends State<SignUp> {
                             'Name': name,
                             'email': username,
                             'role': widget.userRole,
-
+                            'phone': 0,
                           });
+                          showSnackbar(context, "Account created successfully");
                         } on FirebaseAuthException catch (e) {
                           if (e.code == 'weak-password') {
-                            print('The password provided is too weak.');
+                            showSnackbar(context,'The password provided is too weak.');
                           } else if (e.code == 'email-already-in-use') {
-                            print('The account already exists for that email.');
+                            showSnackbar(context,'The account already exists for that email.');
                           }
                         } catch (e) {
                           print(e);

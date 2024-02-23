@@ -4,6 +4,7 @@ class User{
   final String name;
   final double latitude;
   final double longitude;
+  final int phone;
 
   User({
     required this.uid,
@@ -11,5 +12,6 @@ class User{
     required this.name,
     required this.latitude,
     required this.longitude,
+    required this.phone,
   });
 }

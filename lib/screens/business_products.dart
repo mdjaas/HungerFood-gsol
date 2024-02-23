@@ -48,7 +48,6 @@ class BusinessProducts extends StatelessWidget {
                     padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                     child: BusinessProductWidget(
                       heading: userProducts[index]['productName'],
-                      postingDay: 'Today', // Replace with actual posting day
                       price: userProducts[index]['price'].toString(),
                       desc: userProducts[index]['description'],
                       image: userProducts[index]['imageURL'],

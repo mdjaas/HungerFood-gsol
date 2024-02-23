@@ -31,14 +31,17 @@ class FarmersProducts extends StatelessWidget{
             } else {
               List<Map<String, dynamic>> userProducts = [];
               for (QueryDocumentSnapshot document in snapshot.data!.docs) {
-                Map<String, dynamic> productData = {
-                  'productName': document['productName'],
-                  'description': document['description'],
-                  'price': document['price'],
-                  'category': document['category'],
-                  'imageURL': document['imageURL'],
-                };
-                userProducts.add(productData);
+                if(document['quantity']!=0){
+                  Map<String, dynamic> productData = {
+                    'productName': document['productName'],
+                    'description': document['description'],
+                    'price': document['price'],
+                    'category': document['category'],
+                    'imageURL': document['imageURL'],
+                  };
+                  userProducts.add(productData);
+                }
+
               }
 
               return ListView.builder(
@@ -48,7 +51,6 @@ class FarmersProducts extends StatelessWidget{
                     padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                     child: BusinessProductWidget(
                       heading: userProducts[index]['productName'],
-                      postingDay: 'Today',
                       price: userProducts[index]['price'].toString(),
                       desc: userProducts[index]['description'],
                       image: userProducts[index]['imageURL'],

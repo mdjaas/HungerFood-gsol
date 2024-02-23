@@ -40,6 +40,14 @@ class _BusinessAddProductState extends State<BusinessAddProduct>{
       });
     }
 
+    void showSnackbar(BuildContext context, String message) {
+      final snackBar = SnackBar(
+        content: Text(message),
+      );
+
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
+
     Future<void> addProductToFirestore() async {
       try {
         String? user = FirebaseAuth.instance.currentUser?.uid;
@@ -68,9 +76,10 @@ class _BusinessAddProductState extends State<BusinessAddProduct>{
             'latitude': latitude,
             'longitude': longitude,
           });
+          showSnackbar(context, 'Product added successfully');
         } else {
 
-          print('Please enter all details');
+          showSnackbar(context, 'Please enter all details');
         }
       } catch (error) {
         print('Error adding product to Firestore: $error');

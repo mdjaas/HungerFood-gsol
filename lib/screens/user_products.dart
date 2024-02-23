@@ -67,6 +67,7 @@ class _UserProductState extends State<UserProducts> {
                       padding: const EdgeInsets.symmetric(vertical: 20),
                       child: const TextFieldWidget(
                         hintPlaceholder: 'Search for beverages, meals, etc',
+
                       ),
                     ),
                     const Padding(
@@ -77,63 +78,66 @@ class _UserProductState extends State<UserProducts> {
                       ),
                     ),
                     Center(
-                      child: Row(
-                        children: [
-                          TextButton(onPressed: (){
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const UserItemsList(title:"Grocery" ,),
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: [
+                            TextButton(onPressed: (){
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const UserItemsList(title:"Grocery" ,),
+                                ),
+                              );
+                            },
+                              child: Padding(
+                                padding: EdgeInsets.only(left: 10, top: 10),
+                                child: StoreFilter(storeType: "Grocery", image: "assets/grocery.png"),
                               ),
-                            );
-                          },
-                            child: Padding(
-                            padding: EdgeInsets.only(left: 10, top: 10),
-                            child: StoreFilter(storeType: "Grocery", image: "assets/grocery.png"),
-                          ),
-                          ),
+                            ),
 
-                          TextButton(onPressed: (){
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const UserItemsList(title:"Bakery" ,category: "Bakery"),
+                            TextButton(onPressed: (){
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const UserItemsList(title:"Bakery" ,category: "Bakery"),
+                                ),
+                              );
+                            },
+                              child: Padding(
+                                padding: EdgeInsets.only(left: 10, top: 10),
+                                child: StoreFilter(storeType: "Bakery", image: "assets/bakery.png"),
                               ),
-                            );
-                          },
-                            child: Padding(
-                              padding: EdgeInsets.only(left: 10, top: 10),
-                              child: StoreFilter(storeType: "Bakery", image: "assets/bakery.png"),
                             ),
-                          ),
-                          TextButton(onPressed: (){
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>const UserItemsList(title:"Restaurant" ,category: "Meals"),
+                            TextButton(onPressed: (){
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>const UserItemsList(title:"Restaurant" ,category: "Meals"),
+                                ),
+                              );
+                            },
+                              child: Padding(
+                                padding: EdgeInsets.only(left: 10, top: 10),
+                                child: StoreFilter(storeType: "Restaurant", image: "assets/food.png"),
                               ),
-                            );
-                          },
-                            child: Padding(
-                              padding: EdgeInsets.only(left: 10, top: 10),
-                              child: StoreFilter(storeType: "Restaurant", image: "assets/food.png"),
                             ),
-                          ),
-                          TextButton(onPressed: (){
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const UserItemsList(title:"Farm" ,category: "Farm"),
+                            TextButton(onPressed: (){
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const UserItemsList(title:"Farm" ,category: "Farm"),
+                                ),
+                              );
+                            },
+                              child: Padding(
+                                padding: EdgeInsets.only(left: 10, top: 10),
+                                child: StoreFilter(storeType: "Farm", image: "assets/wheat.png"),
                               ),
-                            );
-                          },
-                            child: Padding(
-                              padding: EdgeInsets.only(left: 10, top: 10),
-                              child: StoreFilter(storeType: "Farm", image: "assets/farm.png"),
                             ),
-                          ),
-                        ],
-                      ),
+                          ],
+                        ),
+                      )
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
