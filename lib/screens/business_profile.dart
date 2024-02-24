@@ -96,6 +96,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
                           TextFieldWidget(
                             placeholder: "Email",
                             textEditingController: _emailController,
+                            textEnabled: false,
                           ),
                           const SizedBox(height: 20,),
                           TextFieldWidget(

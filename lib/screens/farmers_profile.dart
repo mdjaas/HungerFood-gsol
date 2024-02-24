@@ -97,6 +97,7 @@ class _FarmersProfileState extends State<FarmersProfile> {
                           TextFieldWidget(
                             placeholder: "Email",
                             textEditingController: _emailController,
+                            textEnabled: false,
                           ),
                           const SizedBox(height: 20,),
                           TextFieldWidget(

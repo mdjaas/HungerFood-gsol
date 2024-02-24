@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-const List<String> list = <String>['', 'Business', 'Customer', 'Farmer', 'Delivery Rider'];
+const List<String> list = <String>['', 'Business', 'Customer', 'Farmer'];
 
 class DropdownWidget extends StatefulWidget{
   final Function(String) onValueChanged;

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:geocoding/geocoding.dart';
 import 'package:path/path.dart' as path;
 import 'package:geolocator/geolocator.dart';
 
@@ -32,6 +33,7 @@ class _BusinessAddProductState extends State<BusinessAddProduct>{
     int qty = 0;
     double? latitude;
     double? longitude;
+    String? location;
     FirebaseFirestore db = FirebaseFirestore.instance;
 
     void _changeCategory(String value) {
@@ -75,6 +77,7 @@ class _BusinessAddProductState extends State<BusinessAddProduct>{
             'quantity': qty,
             'latitude': latitude,
             'longitude': longitude,
+            'location': location,
           });
           showSnackbar(context, 'Product added successfully');
         } else {
@@ -101,11 +104,14 @@ class _BusinessAddProductState extends State<BusinessAddProduct>{
         latitude = position.latitude;
         longitude = position.longitude;
         print('Latitude: $latitude, Longitude: $longitude');
+        List<Placemark> placemarks = await placemarkFromCoordinates(latitude!, longitude!);
+
+        Placemark place = placemarks[0];
+        location = "${place.name}, ${place.locality}, ${place.country}";
       } catch (e) {
         print('Error getting location: $e');
       }
     }
-
 
     @override
     Widget build(BuildContext context){

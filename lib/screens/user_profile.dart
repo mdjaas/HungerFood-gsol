@@ -104,6 +104,7 @@ class _UserProfileState extends State<UserProfile> {
                           TextFieldWidget(
                             placeholder: "Email",
                             textEditingController: _emailController,
+                            textEnabled: false,
                             onTextChanged: (value){
                               setState(() {
                                 email=value;

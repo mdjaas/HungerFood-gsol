@@ -8,6 +8,7 @@ class TextFieldWidget extends StatelessWidget{
   final TextEditingController? textEditingController;
   final Function(String)? onTextChanged;
   final TextInputType? inputType;
+  final bool? textEnabled;
 
   const TextFieldWidget({
     super.key,
@@ -17,6 +18,7 @@ class TextFieldWidget extends StatelessWidget{
     this.textEditingController,
     this.onTextChanged,
     this.inputType,
+    this.textEnabled,
 });
 
   @override
@@ -33,6 +35,7 @@ class TextFieldWidget extends StatelessWidget{
         ),
         obscureText: secure ?? false,
         keyboardType: inputType ?? TextInputType.text,
+        enabled: textEnabled ?? true,
       ),
     );
   }
