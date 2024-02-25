@@ -20,6 +20,14 @@ class UserProductsWidget extends StatelessWidget {
     this.productId,
   }) : super(key: key);
 
+  void showSnackbar(BuildContext context, String message) {
+    final snackBar = SnackBar(
+      content: Text(message),
+    );
+
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
   @override
   Widget build(BuildContext context) {
     final cartProvider = Provider.of<CartProvider>(context);
@@ -41,6 +49,7 @@ class UserProductsWidget extends StatelessWidget {
             ),
           ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Padding(
                 padding: const EdgeInsets.only(left: 10),
@@ -49,7 +58,6 @@ class UserProductsWidget extends StatelessWidget {
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),
-              const SizedBox(width: 120),
               Text(
                 "Rs." + price!,
                 style: TextStyle(fontWeight: FontWeight.bold),
@@ -68,6 +76,7 @@ class UserProductsWidget extends StatelessWidget {
               buttonName: "Add to cart",
               onPress: () async{
                 await cartProvider.addToCart(productId!, title!, 1, price!, image!);
+                showSnackbar(context, 'Product successfully added to cart');
               },
             ),
           ),

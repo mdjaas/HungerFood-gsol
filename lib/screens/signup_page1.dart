@@ -17,6 +17,14 @@ class _GettingStartedState extends State<GettingStarted> {
 
   String role="";
 
+  void showSnackbar(BuildContext context, String message) {
+    final snackBar = SnackBar(
+      content: Text(message),
+    );
+
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,6 +83,9 @@ class _GettingStartedState extends State<GettingStarted> {
                       MaterialPageRoute(builder: (context) => SignUp(userRole: role),
                       ),
                     );
+                  }
+                  else{
+                    showSnackbar(context, 'Please choose user type');
                   }
 
                 },
