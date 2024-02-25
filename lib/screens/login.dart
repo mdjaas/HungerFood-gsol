@@ -158,6 +158,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       }
                     }
                   }
+                  else{
+                    showSnackbar(context, "Invalid Username or Password");
+                  }
 
                 },
                 padding: EdgeInsets.only(top: 10, bottom: 10),

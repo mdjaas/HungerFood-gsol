@@ -17,6 +17,7 @@ class _FarmersDashboardState extends State<FarmersDashboard>{
 
   Future fetchPrice() async {
     try {
+      //if app is run on emulator this port number is used to connect to ML.
       final response = await http.get(Uri.parse('http://10.0.2.2:5000/commodities'));
 
       if (response.statusCode == 200) {

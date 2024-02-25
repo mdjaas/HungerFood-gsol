@@ -20,6 +20,14 @@ class UserProductsWidget extends StatelessWidget {
     this.productId,
   }) : super(key: key);
 
+  void showSnackbar(BuildContext context, String message) {
+    final snackBar = SnackBar(
+      content: Text(message),
+    );
+
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
   @override
   Widget build(BuildContext context) {
     final cartProvider = Provider.of<CartProvider>(context);
@@ -68,6 +76,7 @@ class UserProductsWidget extends StatelessWidget {
               buttonName: "Add to cart",
               onPress: () async{
                 await cartProvider.addToCart(productId!, title!, 1, price!, image!);
+                showSnackbar(context, 'Product successfully added to cart');
               },
             ),
           ),

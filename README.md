@@ -13,7 +13,7 @@ of storage, unexpected rainfall, etc.
 HungerFood connects hungry customers to the businesses and to the farmers. Businesses can post the products
 that are excess for the day at very low price or for free at the closing time.
 For farmers we are using ML to predict the price they can expect from their crops for next 6 months. They can sell
-their farm produce for lower cost if their crops are getting damaged and they can make informed decisions based
+their farm produce for lower cost if their crops are getting damaged and also they can make informed decisions based
 on prediction.
 
 Hungry customers can buy food from restaurant, bakeries, groceries and crops from farmers at very low cost or for
@@ -40,3 +40,5 @@ to food for hungry and preventing waste of food.
 - Open the project in Android Studio, or Visual Studio, etc
 - Connect to an emulator or device
 - Write `flutter run` command to build and run your app
+- Also clone run the ML model from the the github link https://github.com/Amogh-4/HungerFood-crop-price-prediction.git for farmers side
+- For connecting the app to ML model the api call is made to port http://10.0.2.2:5000/ if it is used in emulator. 

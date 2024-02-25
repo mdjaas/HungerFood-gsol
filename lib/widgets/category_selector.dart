@@ -22,7 +22,6 @@ class CategorySelector extends StatelessWidget{
         onTap: (){
           onClick!(value!);
         },
-        child: Expanded(
           child: Container(
             width: 100,
             height: 100,
@@ -39,7 +38,7 @@ class CategorySelector extends StatelessWidget{
               ],
             ),
           ),
-        ),
+
     );
   }
 }

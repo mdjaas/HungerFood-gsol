@@ -95,7 +95,7 @@ class _BusinessAddProductState extends State<BusinessAddProduct>{
 
         if (permission == LocationPermission.denied) {
           // Handle the case where the user denies permission
-          print('Location permission denied');
+          showSnackbar(context, 'Location permission denied');
           return;
         }
         Position position = await Geolocator.getCurrentPosition(
@@ -103,6 +103,7 @@ class _BusinessAddProductState extends State<BusinessAddProduct>{
         );
         latitude = position.latitude;
         longitude = position.longitude;
+        showSnackbar(context, 'Location detected');
         print('Latitude: $latitude, Longitude: $longitude');
         List<Placemark> placemarks = await placemarkFromCoordinates(latitude!, longitude!);
 

@@ -42,6 +42,14 @@ class _FarmersAddProductState extends State<FarmersAddProduct>{
     });
   }
 
+  void showSnackbar(BuildContext context, String message) {
+    final snackBar = SnackBar(
+      content: Text(message),
+    );
+
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
   Future<void> addProductToFirestore() async {
     try {
       String? user = FirebaseAuth.instance.currentUser?.uid;
@@ -71,9 +79,10 @@ class _FarmersAddProductState extends State<FarmersAddProduct>{
           'longitude': longitude,
           'location': location,
         });
+        showSnackbar(context, 'Product added successfully');
       } else {
 
-        print('Please enter all details');
+        showSnackbar(context,'Please enter all details');
       }
     } catch (error) {
       print('Error adding product to Firestore: $error');
@@ -86,7 +95,7 @@ class _FarmersAddProductState extends State<FarmersAddProduct>{
 
       if (permission == LocationPermission.denied) {
         // Handle the case where the user denies permission
-        print('Location permission denied');
+        showSnackbar(context, 'Location permission denied');
         return;
       }
       Position position = await Geolocator.getCurrentPosition(
@@ -94,6 +103,7 @@ class _FarmersAddProductState extends State<FarmersAddProduct>{
       );
       latitude = position.latitude;
       longitude = position.longitude;
+      showSnackbar(context, 'Location Detected');
       print('Latitude: $latitude, Longitude: $longitude');
       List<Placemark> placemarks = await placemarkFromCoordinates(latitude!, longitude!);
 

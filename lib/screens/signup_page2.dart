@@ -19,6 +19,8 @@ class SignUp extends StatefulWidget{
 }
 
 class _SignupScreenState extends State<SignUp> {
+  final RegExp usernameValidation = RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$');
+  final RegExp passwordValidation = RegExp(r'^(?=.*[A-Za-z])(?=.*\d)(?=.*[@#$%^&+=!])(?=.*[^\w\d\s]).{8,}$');
   TextEditingController _usernameController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   TextEditingController _nameController = TextEditingController();
@@ -92,28 +94,35 @@ class _SignupScreenState extends State<SignUp> {
                       fontSize: 20,
                       buttonName: 'Sign Up',
                       onPress: () async {
-                        try {
-                          final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
-                            email: username,
-                            password: password,
-                          );
+                        if (usernameValidation.hasMatch(username) && passwordValidation.hasMatch(password)){
+                          try {
+                            final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+                              email: username,
+                              password: password,
+                            );
 
-                          await db.collection('users').doc(credential.user!.uid).set({
-                            'Name': name,
-                            'email': username,
-                            'role': widget.userRole,
-                            'phone': 0,
-                          });
-                          showSnackbar(context, "Account created successfully");
-                        } on FirebaseAuthException catch (e) {
-                          if (e.code == 'weak-password') {
-                            showSnackbar(context,'The password provided is too weak.');
-                          } else if (e.code == 'email-already-in-use') {
-                            showSnackbar(context,'The account already exists for that email.');
+                            await db.collection('users').doc(credential.user!.uid).set({
+                              'Name': name,
+                              'email': username,
+                              'role': widget.userRole,
+                              'phone': 0,
+                            });
+                            showSnackbar(context, "Account created successfully");
+                          } on FirebaseAuthException catch (e) {
+                            if (e.code == 'weak-password') {
+                              showSnackbar(context,'The password provided is too weak.');
+                            } else if (e.code == 'email-already-in-use') {
+                              showSnackbar(context,'The account already exists for that email.');
+                            }
+                          } catch (e) {
+                            print(e);
                           }
-                        } catch (e) {
-                          print(e);
                         }
+                        else{
+                          showSnackbar(context, 'Password should contain atleast 1 alphabet, 1 digit, '
+                              '1 special character with min 8 characters');
+                        }
+
                       },
                     ),
                   ),
